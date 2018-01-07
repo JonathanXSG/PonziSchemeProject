@@ -35,11 +35,11 @@ public class PonziSchemeTree implements Iterable<Member>, Cloneable{
 		if (!(p instanceof Node)) 
 			throw new IllegalArgumentException("Invalid position type for this implementation."); 
 		Node np = (Node) p; 
-		if (np.getSponsor() == np)
+		if (np.sponsor == np)
 			throw new IllegalArgumentException("Target position is not part of a tree.");
 		
 		// the following validates that p is a position in this tree
-		if (np.getOwnerTree() != this)
+		if (np.ownerTree != this)
 			throw new IllegalArgumentException("Target position is not part of the tree.");	
 		return np; 
 	}
@@ -50,12 +50,12 @@ public class PonziSchemeTree implements Iterable<Member>, Cloneable{
 
 	public Position sponsor(Position p) throws IllegalArgumentException {
 		Node np = this.validate(p); 
-		return np.getSponsor(); 
+		return np.sponsor; 
 	}
 	
 	public Position mentor(Position p) throws IllegalArgumentException {
 		Node np = this.validate(p); 
-		return np.getMentor(); 
+		return np.mentor; 
 	}
 
 	public Iterable<Position> children(Position p)
@@ -63,16 +63,16 @@ public class PonziSchemeTree implements Iterable<Member>, Cloneable{
 		Node np = this.validate(p);
 		ArrayList<Position> result = 
 				new ArrayList<Position>(); 
-		if (np.getChildren() != null) 
-			for(Position cp : np.getChildren())
+		if (np.children != null) 
+			for(Position cp : np.children)
 				result.add(cp); 
 		return result; 
 	}
 
 	public int numChildren(Position p) throws IllegalArgumentException {
 		Node np = validate(p);  
-		if (np.getChildren() != null) 
-			return np.getChildren().size();
+		if (np.children != null) 
+			return np.children.size();
 		else 
 			return 0; 
 	}
@@ -101,9 +101,9 @@ public class PonziSchemeTree implements Iterable<Member>, Cloneable{
 			throws IllegalArgumentException { 
 		Node np = validate(p);  
 		Node nuevo = new Node(element, np, null, this); 
-		if (np.getChildren() == null)
-			np.setChildren(new ArrayList<Node>());
-		np.getChildren().add(nuevo); 
+		if (np.children == null)
+			np.children =(new ArrayList<Node>());
+		np.children.add(nuevo); 
 		size++; 
 		return nuevo; 
 	}
@@ -111,7 +111,7 @@ public class PonziSchemeTree implements Iterable<Member>, Cloneable{
 	public Member remove(Position p) throws IllegalArgumentException { 
 		Node ntd = validate(p); 
 		Member etr = ntd.getElement(); 
-		Node parent = ntd.getSponsor(); 
+		Node parent = ntd.sponsor; 
 		if (parent == null)    // then ntd is the root
 			if (numChildren(ntd) > 1) 
 				throw new IllegalArgumentException
@@ -119,13 +119,13 @@ public class PonziSchemeTree implements Iterable<Member>, Cloneable{
 			else if (numChildren(ntd) == 0)
 				root = null; 
 			else { 
-				root = ntd.getChildren().get(0);    // the only child
-				root.setSponsor(null);
+				root = ntd.children.get(0);    // the only child
+				root.sponsor =null;
 			}
 		else { 
 			for (Node childNTD : ntd.children) { 
-				parent.getChildren().add(childNTD);   
-				childNTD.setSponsor(parent); 
+				parent.children.add(childNTD);   
+				childNTD.sponsor = parent; 
 			}	
 		}
 		
@@ -135,23 +135,7 @@ public class PonziSchemeTree implements Iterable<Member>, Cloneable{
 		return etr; 
 	}
 	
-	// Creating a CLONE
-	public PonziSchemeTree clone() throws CloneNotSupportedException { 
-		PonziSchemeTree other = new PonziSchemeTree(); 
-		if (!isEmpty())
-			other.addRoot(root().getElement()); 
-		cloneSubtree(root(), other, other.root()); 
-		
-		return other; 
-	}
 	
-	private void cloneSubtree(Position rThis, PonziSchemeTree other,
-			Position rOther) {
-		for (Position pThis : children(rThis)) { 
-			Position pOther = other.addChild(rOther, pThis.getElement());
-			cloneSubtree(pThis, other, pOther); 
-		}
-	}
 	public boolean isInternal(Position p) throws IllegalArgumentException {
 		return this.numChildren(p) > 0;
 	}
@@ -236,52 +220,52 @@ public class PonziSchemeTree implements Iterable<Member>, Cloneable{
 			this.children = null; 
 		}
 		
-		public Node getSponsor() {
-			return sponsor;
-		}
-
-		public void setSponsor(Node parent) {
-			this.sponsor = parent;
-		}
-		
-		/**
-		 * @return the mentor
-		 */
-		public Node getMentor() {
-			return mentor;
-		}
-
-		/**
-		 * @param mentor the mentor to set
-		 */
-		public void setMentor(Node mentor) {
-			this.mentor = mentor;
-		}
-
-		public ArrayList<Node> getChildren() {
-			return children;
-		}
-
-		public void setChildren(ArrayList<Node> children) {
-			this.children = children;
-		}
-
+//		public Node getSponsor() {
+//			return sponsor;
+//		}
+//
+//		public void setSponsor(Node parent) {
+//			this.sponsor = parent;
+//		}
+//		
+//		/**
+//		 * @return the mentor
+//		 */
+//		public Node getMentor() {
+//			return mentor;
+//		}
+//
+//		/**
+//		 * @param mentor the mentor to set
+//		 */
+//		public void setMentor(Node mentor) {
+//			this.mentor = mentor;
+//		}
+//
+//		public ArrayList<Node> getChildren() {
+//			return children;
+//		}
+//
+//		public void setChildren(ArrayList<Node> children) {
+//			this.children = children;
+//		}
+//
 		@Override
 		public Member getElement() {
 			return element;
 		} 
-		
-		public void setElement(Member e) { 
-			element = e; 
-		}		
-		
-		public PonziSchemeTree getOwnerTree() { 
-			return ownerTree; 
-		}
-		
-		public void setOwnerTree(PonziSchemeTree t) { 
-			ownerTree = t; 
-		}
+//		
+//		public void setElement(Member e) { 
+//			element = e; 
+//		}		
+//		
+//		public PonziSchemeTree getOwnerTree() { 
+//			return ownerTree; 
+//		}
+//		
+//		public void setOwnerTree(PonziSchemeTree t) { 
+//			ownerTree = t; 
+//		}
 
 
 	}

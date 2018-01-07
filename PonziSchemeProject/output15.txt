@@ -1,0 +1,5 @@
+Maximum seized assets: 276
+List 1: Toby, Kent, Danielle
+List 2: Danielle, Kent, Toby
+List 3: Nicholas, Guillermo, Janie
+List 4: Janie, Guillermo, Nicholas
