@@ -1,2 +1,2 @@
-Maximum seized assets: 0
-List is Empty
+Maximum seized assets: 619
+List 1: Person391, Person387, Person386, Person384, Person383, Person382, Person381

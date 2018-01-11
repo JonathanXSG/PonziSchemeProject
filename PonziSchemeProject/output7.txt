@@ -1,2 +1,2 @@
-Maximum seized assets: 60
-List 1: Alexander
+Maximum seized assets: 1050
+List 1: Person247, Person240, Person239, Person238, Person230, Person227, Person225, Person224, Person237, Person236, Person235, Person234, Person233

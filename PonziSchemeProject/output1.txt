@@ -1,3 +1,3 @@
-Maximum seized assets: 162
-List 1: Jacob, William, James, Alexander
-List 2: Alexander, James, William, Jacob
+Maximum seized assets: 841
+List 1: Person17, Person12, Person9, Person8, Person7, Person6, Person5, Person4, Person3, Person0, Person1, Person2
+List 2: Person17, Person12, Person9, Person8, Person7, Person6, Person5, Person4, Person0, Person3, Person1, Person2

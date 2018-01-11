@@ -16,8 +16,10 @@ public class PonziSchemeMain {
 	static Integer maxValue=0;
 	static BufferedReader bReader;
 	static BufferedWriter writer;
+	int fileCount;
 	
 	public static void main(String[] args) {
+		long startTime = System.nanoTime();
 		String line = "";
 		try {
 			if(args.length!=0){
@@ -27,7 +29,7 @@ public class PonziSchemeMain {
 				bReader = new BufferedReader(new FileReader("input.txt"));
 			}
 			
-			//Read all the csv files from the input.txt
+			//Read all the txt files from the input.txt
 			while((line = bReader.readLine()) != null) {
 				if(!line.isEmpty()) {
 					String[] fileInfo = line.split(" ");
@@ -40,6 +42,10 @@ public class PonziSchemeMain {
 			 * it runs the four methods of serving and outputs the results.
 			 */
 			for (Pair<Integer, File> f: files){
+				if(!f.getValue().isFile()) {
+					System.out.println("##### "+f.getValue().toString() + " Doesn't exist. ####");
+					continue;
+				}
 				maxValue=0;
 				fileCount++;
 				writer = new BufferedWriter(new FileWriter("output"+fileCount+".txt"));
@@ -55,9 +61,6 @@ public class PonziSchemeMain {
 				}
 				writer.flush();
 
-//				if(fileCount==18) {
-//					members.display();
-//				}
 				System.out.println("output"+fileCount+".txt");
 			}
 			writer.close();
@@ -65,7 +68,9 @@ public class PonziSchemeMain {
 			System.out.println(e);
 			e.printStackTrace();
 		}
+		long endTime = System.nanoTime();
 		System.out.println("Finished Run");
+		System.out.println((endTime - startTime)/1000000 + " milliseconds");
 	}
 	
 	private static boolean readFile(File file) throws IOException {
@@ -85,7 +90,7 @@ public class PonziSchemeMain {
 				else {
 					newMember = new Member(memberInfo[0], Integer.valueOf(memberInfo[1]),null);
 				}
-				members.addChildAfter(newMember);
+				members.addChildToParent(newMember);
 			}
 		}
 		return notEmpty;
@@ -101,38 +106,43 @@ public class PonziSchemeMain {
 	private static void calcValue(int num, Position pos, ArrayList<Member> trace, int value) {
 		trace.add(pos.getElement());
 		value+=pos.getElement().getValue();
+		boolean entered = false;
 		if(num>1) {
 			if(members.isInternal(pos)) {
 				for(Position child : members.children(pos)) {
 					if(trace.indexOf(child.getElement()) == -1) {
+						entered=true;
 						calcValue(num-1,child,(ArrayList<Member>) trace.clone(),value);
 					}
 				}
 			}
 			if(members.mentor(pos) != null && trace.indexOf(members.mentor(pos).getElement()) == -1) {
+				entered=true;
 				calcValue(num-1,members.mentor(pos),(ArrayList<Member>) trace.clone(),value);
 			}
-			if(members.sponsor(pos) != null && trace.indexOf(members.sponsor(pos).getElement()) == -1){
+			if(members.sponsor(pos) != null && trace.indexOf(members.sponsor(pos).getElement()) == -1 
+					&& members.sponsor(pos) != (members.mentor(pos))){
+				entered=true;
 				calcValue(num-1,members.sponsor(pos),(ArrayList<Member>) trace.clone(),value);
 			}
 		}
-		else {
+		if((num==1 || !entered ) && value>= maxValue){
 			addTraceResult(trace, value);
 		}
 	}
 	
 	public static void addTraceResult(ArrayList<Member> trace, int value) {
 		if(results.isEmpty()) {
-			results.add(new ArrayList<Member>(trace));
+			results.add(new ArrayList<>(trace));
 		}
 		else {
 			if(maxValue < value) {
 				maxValue=value;
 				results.clear();
-				results.add(new ArrayList<Member>(trace));
+				results.add(new ArrayList<>(trace));
 			}
-			else if(maxValue == value && !results.contains(trace)) {
-				results.add(new ArrayList<Member>(trace));
+			else if(maxValue == value ) {
+				results.add(new ArrayList<>(trace));
 			}
 		}
 	}
@@ -142,9 +152,9 @@ public class PonziSchemeMain {
 		writer.append("Maximum seized assets: "+ maxValue);
 		for(ArrayList<Member> traces : results) {
 			lineCount++;
-			writer.append("\n");
+			writer.newLine();
 			writer.append("List "+lineCount+": ");
-			Iterator it = traces.iterator();
+			Iterator<Member> it = traces.iterator();
 			while(it.hasNext()) {
 				writer.append(((Member) it.next()).getName());
 				if(it.hasNext()) {

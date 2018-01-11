@@ -1,3 +1,2 @@
-Maximum seized assets: 196
-List 1: Nicholas, Michele
-List 2: Michele, Nicholas
+Maximum seized assets: 330000
+List 1: UP, IF, P, C, B, K, BQ

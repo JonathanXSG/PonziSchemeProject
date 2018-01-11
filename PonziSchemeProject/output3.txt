@@ -1,3 +1,2 @@
-Maximum seized assets: 411
-List 1: Miriam, Dashawn, Brennen, Kolten, Valery
-List 2: Valery, Kolten, Brennen, Dashawn, Miriam
+Maximum seized assets: 722
+List 1: Person48, Person44, Person47, Person49, Person51, Person52, Person53, Person62, Person55, Person60, Person61

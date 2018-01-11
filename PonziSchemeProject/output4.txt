@@ -1,6 +1,2 @@
-Maximum seized assets: 566
-List 1: Brady, Katelyn, Korbin, Keagan, Irene, Titus, Juliet
-List 2: Juliet, Titus, Irene, Brady, Katelyn, Korbin, Keagan
-List 3: Juliet, Titus, Irene, Brady, Katelyn, Keagan, Korbin
-List 4: Juliet, Titus, Irene, Brady, Keagan, Katelyn, Korbin
-List 5: Juliet, Titus, Irene, Keagan, Brady, Katelyn, Korbin
+Maximum seized assets: 1060
+List 1: Person52, Person50, Person55, Person61, Person56, Person60, Person62, Person63, Person64, Person65, Person66, Person67, Person70, Person68, Person69

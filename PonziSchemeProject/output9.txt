@@ -1,3 +1,2 @@
-Maximum seized assets: 424
-List 1: Reilly, Maddox, Lucy, Kassandra, Halle
-List 2: Halle, Kassandra, Reilly, Maddox, Lucy
+Maximum seized assets: 0
+List is Empty

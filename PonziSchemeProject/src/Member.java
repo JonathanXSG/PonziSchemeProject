@@ -2,17 +2,17 @@
 public class Member {
 
 	private String name;
-	private int value;
+	private int assets;
 	private String sponsor;
 	
 	public Member(String name, int value, String sponsor) {
 		this.name = name;
-		this.value = value;
+		this.assets = value;
 		this.sponsor = sponsor;
 	}
 	public Member() {
 		this.name = null;
-		this.value = 0;
+		this.assets = 0;
 		this.sponsor = null;
 	}
 	
@@ -32,13 +32,13 @@ public class Member {
 	 * @return the value
 	 */
 	public int getValue() {
-		return value;
+		return assets;
 	}
 	/**
 	 * @param value the value to set
 	 */
 	public void setValue(int value) {
-		this.value = value;
+		this.assets = value;
 	}
 	/**
 	 * @return the sponsor
@@ -52,12 +52,11 @@ public class Member {
 	public void setSponsor(String sponsor) {
 		this.sponsor = sponsor;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+	
+
 	@Override
 	public String toString() {
-		return "Member [name=" + name + ", value=" + value + ", sponsor=" + sponsor + "]";
+		return "Member [name=" + name + ", value=" + assets + ", sponsor=" + sponsor + "]";
 	}
 	
 	
