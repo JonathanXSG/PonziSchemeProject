@@ -1,15 +1,27 @@
 
+/**
+ * @author Jonathan
+ */
 public class Member {
 
 	private String name;
 	private int assets;
 	private String sponsor;
 	
+	/**
+	 * Full constructor
+	 * @param name String of the name of the person
+	 * @param value The assets of the person
+	 * @param sponsor String of the name of the Sponsor
+	 */
 	public Member(String name, int value, String sponsor) {
 		this.name = name;
 		this.assets = value;
 		this.sponsor = sponsor;
 	}
+	/**
+	 * Default constructor
+	 */
 	public Member() {
 		this.name = null;
 		this.assets = 0;
